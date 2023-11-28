@@ -241,7 +241,9 @@
   position: relative;
   height: 100%;
   background: url('../../public/bcg.png');
-  background-size: 100% 100%;
+  background-size: auto 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
   // opacity: 0.5;
 }
 
@@ -340,6 +342,12 @@
   border-radius: 11px;
   background-color: #fff;
 
+  .chat-message-avatar-mazu{
+    background-image: url(../../public/mazu-avatar.jpg);
+    background-size: 100% 100%;
+    border-radius: 11px;
+  }
+
   .chat-message-edit {
     position: absolute;
     height: 100%;
@@ -386,6 +394,15 @@
   position: relative;
   transition: all ease 0.3s;
   background-color: #fff;
+}
+
+.chat-message-item-play {
+  height: 28px;
+  line-height: 28px;
+  border-top: 1px solid #fafafa;
+  margin-top: 10px;
+  float: right;
+  display: flex;
 }
 
 .chat-message-action-date {
