@@ -145,9 +145,8 @@ export function SideBar(props: { className?: string }) {
 
   return (
     <div
-      className={`${styles.sidebar} ${props.className} ${
-        shouldNarrow && styles["narrow-sidebar"]
-      }`}
+      className={`${styles.sidebar} ${props.className} ${shouldNarrow && styles["narrow-sidebar"]
+        }`}
       style={{
         // #3016 disable transition on ios mobile screen
         transition: isMobileScreen && isIOSMobile ? "none" : undefined,
@@ -155,10 +154,10 @@ export function SideBar(props: { className?: string }) {
     >
       <div className={styles["sidebar-header"]} data-tauri-drag-region>
         <div className={styles["sidebar-title"]} data-tauri-drag-region>
-          ChatGPT Next
+          妈祖AI
         </div>
         <div className={styles["sidebar-sub-title"]}>
-          Build your own AI assistant.
+          为你的人生保驾护航
         </div>
         <div className={styles["sidebar-logo"] + " no-dark"}>
           <ChatGptIcon />

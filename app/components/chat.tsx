@@ -620,6 +620,7 @@ function _Chat() {
 
   const [showExport, setShowExport] = useState(false);
 
+  const [audioData, setAudioData] = useState<ArrayBuffer | null>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const [userInput, setUserInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -1048,35 +1049,43 @@ function _Chat() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // async function playAudio(text: any) {
-  //   const [audioData, setAudioData] = useState(null);
-  //   try {
-  //     // 发送文本到语音合成服务，获取音频数据
-  //     const text = '传输文本';  // 替换为实际的文本
-  //     const response = await fetchAudioDataFromService(text);
-  //     setAudioData(response);
-  //   } catch (error) {
-  //     console.error('Error:', error);
-  //   }
-  // }
-  // async function fetchAudioDataFromService(text: any) {
-  //   const response = await fetch('https://ttsapi.protoforever.me/api/tts', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({
-  //       content: text,
-  //     }),
-  //   });
-  
-  //   if (!response.ok) {
-  //     throw new Error(`HTTP error! Status: ${response.status}`);
-  //   }
-  
-  //   const audioData = await response.arrayBuffer();
-  //   return audioData;
-  // }
+  async function playAudio(text: any) {
+    try {
+      // 发送文本到语音合成服务，获取音频数据
+      const text = '传输文本';  // 替换为实际的文本
+      const response = await fetchAudioDataFromService(text);
+      setAudioData(response);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+    if (audioData) {
+      const audioContext = new window.AudioContext();
+      audioContext.decodeAudioData(audioData, buffer => {
+        const source = audioContext.createBufferSource();
+        source.buffer = buffer;
+        source.connect(audioContext.destination);
+        source.start();
+      });
+    }
+  }
+  async function fetchAudioDataFromService(text: any) {
+    const response = await fetch('https://ttsapi.protoforever.me/api/tts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        content: text,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const audioData = await response.arrayBuffer();
+    return audioData;
+  }
 
   return (
     <div className={styles.chat} key={session.id}>
@@ -1270,7 +1279,7 @@ function _Chat() {
                       parentRef={scrollRef}
                       defaultShow={i >= messages.length - 6}
                     />
-                    {/* {isUser ? (
+                    {isUser ? (
                       <></>
                     ) : (
                       <div className={styles["chat-message-item-play"]} onClick={() => playAudio(message.content)}>
@@ -1278,11 +1287,11 @@ function _Chat() {
                         <ChatAction
                           text={''}
                           icon={<PlayVoiceIcon />}
-                          onClick={() => {}}
+                          onClick={() => { }}
                         />
 
                       </div>
-                    )} */}
+                    )}
 
                   </div>
 
