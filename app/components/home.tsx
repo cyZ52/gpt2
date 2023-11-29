@@ -31,6 +31,11 @@ import { api } from "../client/api";
 import { useAccessStore } from "../store";
 
 export function Loading(props: { noLogo?: boolean }) {
+
+  useEffect(() => {
+    document.title = "妈祖AI";
+  })
+
   return (
     <div className={styles["loading-content"] + " no-dark"}>
       {!props.noLogo && <BotIcon />}
@@ -132,6 +137,7 @@ function Screen() {
 
   useEffect(() => {
     loadAsyncGoogleFont();
+    document.title = "妈祖AI";
   }, []);
 
   return (
@@ -184,6 +190,7 @@ export function Home() {
   useHtmlLang();
 
   useEffect(() => {
+    document.title = "妈祖AI";
     console.log("[Config] got config from build time", getClientConfig());
     useAccessStore.getState().fetch();
   }, []);
