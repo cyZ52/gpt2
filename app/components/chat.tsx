@@ -1279,7 +1279,7 @@ function _Chat() {
                       parentRef={scrollRef}
                       defaultShow={i >= messages.length - 6}
                     />
-                    {isUser ? (
+                    {/* {isUser ? (
                       <></>
                     ) : (
                       <div className={styles["chat-message-item-play"]} onClick={() => playAudio(message.content)}>
@@ -1291,7 +1291,7 @@ function _Chat() {
                         />
 
                       </div>
-                    )}
+                    )} */}
 
                   </div>
 
